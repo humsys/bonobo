@@ -58,7 +58,7 @@ class ChatStorage {
   newGroup(){
     let {fbref, user} = this
     let id = fbref.push().key
-    fbref.child(`groups/${id}`).set({ id, [`members/${user.uid}`]: user })
+    fbref.child(`groups/${id}`).set({ id, members: { [user.uid]: user } })
     return id
   }
 
