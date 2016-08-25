@@ -5,5 +5,6 @@ var firebase = Firebase.initializeApp({
   authDomain: "bastard-183be.firebaseapp.com",
   databaseURL: "https://bastard-183be.firebaseio.com",
   storageBucket: ""
-});
+})
+
 export default firebase
