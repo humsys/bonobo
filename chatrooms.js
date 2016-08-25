@@ -68,7 +68,7 @@ class ChatStorage {
     if (!message.id)     message.id     = this.fbref.push().key
     if (!thread.id)      thread.id      = message.id
     message.threadId = thread.id
-    let data = { id: thread.id, `_messages/${message.id}`: message }
+    let data = { id: thread.id, [`_messages/${message.id}`]: message }
     this.store(thread, data, message)
   }
 
