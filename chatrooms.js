@@ -78,27 +78,15 @@ class ChatStorage {
   }
 }
 
-///**Let's try it out**
-import Firebase from 'firebase'
-Firebase.initializeApp({
-  apiKey: "AIzaSyBm9oAcCktnQlaxNS1GvyraDGV7QtA6d78",
-  authDomain: "bastard-183be.firebaseapp.com",
-  databaseURL: "https://bastard-183be.firebaseio.com",
-  storageBucket: ""
+///**Let's try it out**\\\\First we can try the store:
+import firebase from './firebase.js'
+let store = new ChatStorage(firebase.database().ref('chattytest'))
+let newGroupId = store.newGroup()
+store.post({groupId: newGroupId}, {
+    text: "This is a message in a new thread in a new group."
 })
 
-(() => {
-
-    ///First we can try the store:
-	let store = new ChatStorage(firebase.database().ref('chattytest'))
-    let newGroupId = store.newGroup()
-    store.post({groupId: newGroupId}, {
-        text: "This is a message in a new thread in a new group."
-    })
-    
-    ///Now we can create a view on it the store and see if we can view our message.
-    let view = new Chatroom(store)
-    view.on('changed', viewData => console.log)
-    view.update({"viewing/groupId": newGroupId})    
-
-})()
+///Now we can create a view on it the store and see if we can view our message.
+let view = new Chatroom(store)
+view.on('changed', viewData => console.log)
+view.update({"viewing/groupId": newGroupId})    
