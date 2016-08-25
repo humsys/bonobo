@@ -4,4 +4,4 @@
 
 This Gist was automatically created by Carbide, a free online programming environment.
 
-[You can view a live, interactive version of this Gist here]
+[You can view a live, interactive version of this Gist here](http://alpha.trycarbide.com/@6d5e19369ddb9cc4728510e11a3f7586).
