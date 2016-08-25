@@ -1,6 +1,6 @@
 ///**Basic chatroom object in react**\\\\In order to test this script, we're going to need a kind of a basic model of a chatroom. \\\\Like this one:
 class Chatroom {
-  constructor(storage, view){
+  constructor(storage){
     this.storage = storage
     this.view = new Updatable({
       draft: { text: "" },
@@ -79,6 +79,13 @@ class ChatStorage {
   }
 }
 
+///Let's try it out
 
 
-///**Enhancements: Notifications**\\\\**Enhancements: Data**
+
+///**Enhancements: Notifications**
+
+
+
+
+///Enhancements: Data
