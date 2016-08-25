@@ -9,7 +9,7 @@ class Chatroom {
       viewing: { groupId: null, threadId: null }
     })
     storage.on('changes', () => this.refreshView())
-    view.on('value', (_, changes) => {
+    this.view.on('value', (_, changes) => {
       if (changes['viewing/groupId'] || changes['viewing/threadId']){
         this.refreshView()
       }
@@ -90,5 +90,4 @@ store.post({groupId: newGroupId}, {
 
 ///Now we can create a view on it the store and see if we can view our message.
 let view = new Chatroom(store)
-view.on('changed', viewData => console.log)
-view.update({"viewing/groupId": newGroupId})    
+view.view.update({"viewing/groupId": newGroupId})    
