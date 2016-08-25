@@ -1,5 +1,4 @@
-///**Chatterbase**\\\\What we're going to day is build a little chatroom with \*soft automation\*. What I mean by that, is that we can start a thread in the chatroom that has a script associated with it, and the script says how to kind of push people along through a workflow, using notifications. We'll also add some functionality for collecting and processing data from multiple people in the chatroom.\\\\One goal of soft automation is that it's easy for each participant to do something different than what the script is suggesting to them. We will even see if we can handle people accepting roles and then shedding them later, posting data that doesn't fit schemas, and the like.\\\\Another goal is that the people are accountable to one another, not to the script. That means that the script mostly makes suggestions, but is not the source of messages and instructions itself.
-///\\**Example script**\\\\So, we'd like to be able to parse scripts like this:
+///**Chatterbase**\\\\What we're going to day is build a little chatroom with _**soft automation**_. What I mean by that, is that we can start a thread in the chatroom that has a script associated with it, and the script says how to guide people along through a set of roles and expectations, using notifications.\\\\Here's an example script:
 const exampleScript = `
 
 organizer:
@@ -22,8 +21,10 @@ organizer:
 organizer:
   @attending see you all soon! 
 `
+///**Why?**//Our goal is to make it easier for ordinary people to describe a set of social interactions they want automatically facilitated. But with three important qualities:\\- _**Undemanding**_. It should be easy for each participant to do something different than what the script is suggesting to them. We will see if we can handle people accepting roles and then shedding them later, posting data that doesn't fit schemas, and the like.//- _**Grassroots**_. People should be accountable to one another, not to the script. That means that the script mostly makes suggestions, but is not the source of messages and instructions itself. The script and its author are not an authority, but lend authority to the players.//- _**Medium-agnostic**_. Ideally, the system should not assume that everything will be done through it's screen-based interfaces. The same script actions which can be fulfilled via text chat shuld also be fulfillable via direct, in-person interactions that re detected by the system, or through synchronous or asynchronous voice.\\We'll also add some functionality for collecting and processing data from multiple people in the chatroom.\\\\\\\\
+///So let's get on with parsing our example script.\\\\**Parser**\\\\We can define a few useful regexes:
 
-///**Parser**\\\\So we can define a few useful regexes:
+
 let ROLE_IDENT = '([a-zA-Z][a-zA-Z0-9]*)'
 let MENTION    = '(@[a-zA-Z][a-zA-Z0-9]*)'
 let DELAY      = '(([0-9]+)\\s*(min|minutes|m|days|d|day|minute))'
@@ -42,7 +43,8 @@ let CHARACTER  = new RegExp(`^${ROLE_IDENT}\\.\\s+(.*?)$`)
 let MESSAGE    = new RegExp(`^${ROLES}:\\s+(.*?)$`)
 let CASTBUTTON = new RegExp(`\\[(${RANGE}\\s+)?${ROLE_IDENT}\\]`, 'g')
 
-let Parser = { ///and build them into a simple parser
+///and build them into a simple parser
+let Parser = {
   inSeconds(n, unit){
     return n * {s: 1, m: 60, h: 60*60, d: 60*60*24}[unit[0]]
   },

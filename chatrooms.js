@@ -1,4 +1,4 @@
-///**Basic chatroom object in react**\\\\In order to test this script, we're going to need a kind of a basic model of a chatroom. \\\\Like this one:
+///**Let's model a chatroom!**\\\\In order to test this script, we're going to need a kind of a basic model of a chatroom.\\\\Like this one:
 class Chatroom {
   constructor(storage){
     this.storage = storage
@@ -36,8 +36,8 @@ class Chatroom {
 
 ///**Backend**\\Here's a function that will take such a model and make sure it's backed by firebase.
 class ChatStorage {
-  constructor(user, fbref){
-    this.user = user
+  constructor(fbref){
+    this.user = firebase.auth().currentUser
     this.fbref = fbref
     this.data = {}
   }
@@ -45,8 +45,7 @@ class ChatStorage {
   on(ev, cb){
     let {fbref, user} = this
     this.query = fbref.child('groups').orderByChild(`members/${user.uid}`)
-    this.handler = s => cb(this.data = s.val() || {})
-    this.query.on('value', this.handler)
+    this.query.on('value', this.handler = s => cb(this.data = s.val() || {}))
   }
 
   groups(){ return this.data }
@@ -79,13 +78,27 @@ class ChatStorage {
   }
 }
 
-///Let's try it out
+///**Let's try it out**
+import Firebase from 'firebase'
+Firebase.initializeApp({
+  apiKey: "AIzaSyBm9oAcCktnQlaxNS1GvyraDGV7QtA6d78",
+  authDomain: "bastard-183be.firebaseapp.com",
+  databaseURL: "https://bastard-183be.firebaseio.com",
+  storageBucket: ""
+})
 
+(() => {
 
+    ///First we can try the store:
+	let store = new ChatStorage(firebase.database().ref('chattytest'))
+    let newGroupId = store.newGroup()
+    store.post({groupId: newGroupId}, {
+        text: "This is a message in a new thread in a new group."
+    })
+    
+    ///Now we can create a view on it the store and see if we can view our message.
+    let view = new Chatroom(store)
+    view.on('changed', viewData => console.log)
+    view.update({"viewing/groupId": newGroupId})    
 
-///**Enhancements: Notifications**
-
-
-
-
-///Enhancements: Data
+})()
