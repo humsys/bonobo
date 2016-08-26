@@ -1,4 +1,4 @@
-// update an object with support for deep paths
+|// update an object with support for deep paths
 export function update(obj,spec){
   for (var k in spec){
     let parts = k.split('/')
