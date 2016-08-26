@@ -1,5 +1,5 @@
 ///**Ok, now for the fun part! **\\\\Let's take a (chatroom thread,  script) pair, and decide what notifications will keep the script moving along in the thread.
-export default function suggestions(thread, script, userId){
+function suggestions(thread, script, userId){
 	let castAsAnyOf = (roles) => roles.some(r => thread.roles[r][userId])
     let ready = (m) => {
         for (var k in m.conditions){
@@ -30,3 +30,5 @@ let exampleThread = {
 
 suggestions(exampleThread, parsedExampleScript, 'joe')
 suggestions(exampleThread, parsedExampleScript, 'jim')
+
+export default suggestions
