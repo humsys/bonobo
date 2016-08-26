@@ -55,5 +55,5 @@ let x = <MessageComposer
 ///- a message view that supports joining/leaving roles
 //import MessageView from './messageView.jsx'
 
-///- group chrome that supports a data-centric view of group conversations, and launch new threads that have scripts attached
+///- group chrome that supports a data-centric view of group conversations, and launching new threads that have scripts attached
 //import GroupChrome from './groupChrome.jsx'
