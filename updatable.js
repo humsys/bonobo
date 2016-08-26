@@ -2,10 +2,11 @@
 export function update(obj,spec){
   for (var k in spec){
     let parts = k.split('/')
+    let child = obj
     parts.forEach((c,i) => {
-      if (i == parts.length - 1) obj[c] = spec[k]
-      else if (!obj[c]) obj[c] = {}
-      obj = obj[c]
+      if (i == parts.length - 1) child[c] = spec[k]
+      else if (!child[c]) child[c] = {}
+      child = child[c]
     })
   }
 }
