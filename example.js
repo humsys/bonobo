@@ -39,4 +39,14 @@ let exampleThread = {
 suggestions(exampleThread, parsedExampleScript, 'joe')
 suggestions(exampleThread, parsedExampleScript, 'jim')
 
-///Further below, we'll build a little chatroom interface that lets you\\- send ordinary messages//- start/join groups and threads//- attach scripts to threads//- join and leave roles as part of a thread, //- collect/view thread data//- and follow suggestions
+///Further below, we'll build a little chatroom interface that lets you do ordinary things\\- send ordinary messages//- start/join groups and threads\\And extraordinary things\\- attach scripts to threads//- join and leave roles as part of a thread//- collect/view thread data//- and follow suggestions\\\\\\In particular, we'll make: 
+
+///- a message composer that can show suggestions
+import MessageComposer from './messageComposer.jsx'
+<Composer suggestions={} />
+
+///- a message view that supports joining/leaving roles
+import MessageView from './messageView.jsx'
+
+///- group chrome that supports a data-centric view of group conversations, and launch new threads that have scripts attached
+import GroupChrome from './groupChrome.jsx'
