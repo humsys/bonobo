@@ -1,16 +1,16 @@
 import React from 'react'
 import Firebase from 'firebase'
 
-
-
-
-
-firebase.app() || Firebase.initializeApp({
-  apiKey: "AIzaSyBm9oAcCktnQlaxNS1GvyraDGV7QtA6d78",
-  authDomain: "bastard-183be.firebaseapp.com",
-  databaseURL: "https://bastard-183be.firebaseio.com",
-  storageBucket: ""
-})
+try {
+    firebase.app()
+} catch (e){
+    Firebase.initializeApp({
+      apiKey: "AIzaSyBm9oAcCktnQlaxNS1GvyraDGV7QtA6d78",
+      authDomain: "bastard-183be.firebaseapp.com",
+      databaseURL: "https://bastard-183be.firebaseio.com",
+      storageBucket: ""
+    })
+}
 
 export var loginButtons = <div>
     {
