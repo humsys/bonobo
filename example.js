@@ -49,13 +49,15 @@ import React from 'react'
 import MessageComposer from './messageComposer.jsx'
 let x = <MessageComposer
             suggestions={suggestionsForJim}
-            onSend={text => console.log(text)} 
+            onSend={
+            	(text, suggestion) => console.log(text, suggestion)
+        	} 
             />
 
 ///- a message view that supports joining/leaving roles
 //import MessageView from './messageView.jsx'
 let exampleGroup = { id: 'group1', members: { joe: { uid: 'joe', displayName: 'Joe E' } }}
-let y = <Message
+let y = <MessageView
             text="Hello there buddy"
             from="joe"
             senders={["organizer"]}
