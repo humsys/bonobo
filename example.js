@@ -7,12 +7,12 @@ organizer:
   Who has suggestions for book ideas for our meeting on {date}?
 
 members:
-  @organizer What about {bookIdea | members.bookIdea}?
+  @organizer What about {bookIdea | bookIdea}?
 
 -- 4 days --
 
 organizer:
-  Great, lets all read {book | members.bookIdea} for {date}. Who's [attending]?
+  Great, lets all read {book | bookIdea} for {date}. Who's [attending]?
 
 -- 4 days --
 
@@ -21,7 +21,7 @@ organizer:
 `
 
 
-///Which we can parse like this
+///When parsed, we get an object of characters and cues. Each cue in the script has a set of conditions in which the script should cue a character
 import Parser from './parser'
 var script = Parser.parse(exampleScript)
 
@@ -32,6 +32,7 @@ import suggestions from './suggestions.js'
 let exampleThread = {
     id: 'thread1',
     groupId: 'group1',
+    ctime: new Date(),
     roles: {
         organizer: { joe: true },
         members: { jim: true }
