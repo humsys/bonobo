@@ -77,7 +77,7 @@ let Parser = {
         }
         this.script.cues.push({
           id: this.script.cues.length,
-          notification: hint,
+          prompt: hint,
           conditions: subconditions,
           senders: senders,
           recipients: recipients,

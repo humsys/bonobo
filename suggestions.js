@@ -1,20 +1,19 @@
-///**Ok, now for the fun part! **\\\\Let's take a (chatroom thread,  script) pair, and decide what notifications will keep the script moving along in the thread.
+///**Generating suggestions**\\\\We take a (chatroom thread, script) pair, and decide what notifications will keep the script moving along in the thread.
 function suggestions(thread, script, userId){
 	let castAsAnyOf = (roles) => roles.some(r => thread.roles[r][userId])
     let ready = (m) => {
-        for (var k in m.conditions){
-          // - all roles exist..
+        for (var k in m.conditions){ ///Conditions for a particular cue are met if:
+          ///- all necessary roles are casted
           if (m.conditions[k] == 'exists' && !thread.roles[k]) return false
-          // - all knowledge known
+          ///- all necessary knowledge is known
           if (m.conditions[k] == 'known' && !thread[k]) return false
-          // - delay has happened.. 
-          if (m.conditions.delay && Date.now() - thread.ctime < m.conditions.delay) return false
+          /// - any requested delay has elapsed
+          if (m.conditions.delay && Date.now() - thread.ctime < m.conditions.delay) return false 
           return true
         }
     }
 
-    // every templated message to be authored by a role I'm in whose conditions are met
-    return script.cues.filter(m => castAsAnyOf(m.senders) && ready(m)).map(m => ({
+    return script.cues.filter(m => castAsAnyOf(m.senders) && ready(m)).map(m => ({ ///So cues cause suggestions when their conditions are met and the user is one of the senders
         id: `draft-${m.id}-${userId}`,
         cue: m,
         groupId: thread.groupId,
