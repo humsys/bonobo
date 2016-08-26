@@ -3,13 +3,15 @@ function suggestions(thread, script, userId){
 	let castAsAnyOf = (roles) => roles.some(r => thread.roles[r][userId])
     let ready = (m) => { ///Conditions for a particular cue are met if:
         ///- any requested delay has elapsed
-        if (m.conditions.delay && Date.now() - thread.ctime < m.conditions.delay) return false 
+        if (m.conditions.delay){
+          if (Date.now() - thread.ctime < m.conditions.delay) return false
+        }
         for (var k in m.conditions){
-            let condition = m.conditions[k]
+          let c = m.conditions[k]
           ///- all necessary roles are casted
-          if (condition == 'exists' && !thread.roles[k]) return false
+          if (c == 'exists' && !thread.roles[k]) return false
           ///- all necessary knowledge is known
-          if (condition == 'known' && !thread[k]) return false
+          if (c == 'known' && !thread[k]) return false
           return true
         }
     }
