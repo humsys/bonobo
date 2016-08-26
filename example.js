@@ -27,4 +27,4 @@ organizer:
 
 ///Which we can parse like this
 import Parser from './parser'
-export var parsedExample = Parser.parse(exampleScript)
+export var parsedExampleScript = Parser.parse(exampleScript)
