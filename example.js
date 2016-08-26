@@ -45,8 +45,12 @@ let suggestionsForJim = suggestions(exampleThread, script, 'jim')
 ///Further below, we'll build a little chatroom interface that lets you do ordinary things\\- send ordinary messages//- start/join groups and threads\\And extraordinary things\\- attach scripts to threads//- join and leave roles as part of a thread//- collect/view thread data//- and follow suggestions\\\\\\In particular, we'll make: 
 
 ///- a message composer that can show suggestions
-//import MessageComposer from './messageComposer.jsx'
-//let x = <Composer suggestions={suggestionsForJim} />
+import React from 'react'
+import MessageComposer from './messageComposer.jsx'
+let x = <MessageComposer
+            suggestions={suggestionsForJim}
+            onSend={text => console.log(text)} 
+            />
 
 ///- a message view that supports joining/leaving roles
 //import MessageView from './messageView.jsx'
