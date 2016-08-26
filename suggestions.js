@@ -20,15 +20,4 @@ function suggestions(thread, script, userId){
     }))
 }
 
-import {parsedExampleScript} from './example.js'
-let exampleThread = {
-    roles: {
-        organizer: { joe: true },
-        members: { jim: true }
-    }    
-}
-
-suggestions(exampleThread, parsedExampleScript, 'joe')
-suggestions(exampleThread, parsedExampleScript, 'jim')
-
 export default suggestions

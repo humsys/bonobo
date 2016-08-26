@@ -23,4 +23,20 @@ organizer:
 
 ///Which we can parse like this
 import Parser from './parser'
-export var parsedExampleScript = Parser.parse(exampleScript)
+var parsedExampleScript = Parser.parse(exampleScript)
+
+
+
+///We can then use such a parsed script to generate suggestions for the users in a thread, based on roles they've joined as part of discussing things in the thread.
+import suggestions from './suggestions.js'
+let exampleThread = {
+    roles: {
+        organizer: { joe: true },
+        members: { jim: true }
+    }    
+}
+
+suggestions(exampleThread, parsedExampleScript, 'joe')
+suggestions(exampleThread, parsedExampleScript, 'jim')
+
+///Further below, we'll build a little chatroom interface that lets you\\- send ordinary messages//- start/join groups and threads//- attach scripts to threads//- join and leave roles as part of a thread, //- collect/view thread data//- and follow suggestions
