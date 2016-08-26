@@ -25,7 +25,7 @@ let Parser = {
   },
 
   parse(text){
-    this.script = { characters: {}, messages: [] }
+    this.script = { characters: {}, cues: [] }
     var m, hint, scene, conditions = {}
 
     // first, lines that start with indentation are part of the previous line
@@ -75,7 +75,7 @@ let Parser = {
             if (!this.script.characters[role].min) this.script.characters[role].min = 1
           }
         }
-        this.script.messages.push({
+        this.script.cues.push({
           notification: hint,
           conditions: subconditions,
           senders: senders,

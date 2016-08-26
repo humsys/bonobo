@@ -12,9 +12,9 @@ function suggestions(thread, script, userId){
     }
 
     // every templated message to be authored by a role I'm in whose conditions are met
-    script.messages.filter(m => castAsAnyOf(m.senders) && ready(m)).map(m => ({
-        id: `draft-${m.templateNo}-${userId}`,
-        templateNo: m.templateNo,
+    return script.cues.filter(m => castAsAnyOf(m.senders) && ready(m)).map(m => ({
+        id: `draft-${m.id}-${userId}`,
+        cue: m,
         groupId: thread.groupId,
         threadId: thread.id
     }))

@@ -30,6 +30,8 @@ var script = Parser.parse(exampleScript)
 ///We can then use such a parsed script to generate suggestions for the users in a thread, based on roles they've joined as part of discussing things in the thread.
 import suggestions from './suggestions.js'
 let exampleThread = {
+    id: 'thread1',
+    groupId: 'group1',
     roles: {
         organizer: { joe: true },
         members: { jim: true }
