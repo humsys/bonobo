@@ -3,13 +3,13 @@ function suggestions(thread, script, userId){
 	let castAsAnyOf = (roles) => roles.some(r => thread.roles[r][userId])
     return script.cues.filter(m => { ///Each notification relates to a cue from the script. Conditions for a particular cue are met if:
       
-      if (!castAsAnyOf(m.senders)) return false
+      if (!castAsAnyOf(m.senders)) return false ///- the user is casted as a sender of the cue
         if (m.conditions.delay){ ///- any requested delay has elapsed
           if (Date.now() - thread.ctime < m.conditions.delay) return false
         }
         for (var k in m.conditions){
-          if (m.conditions[k] == 'exists' && !thread.roles[k]) return false ///- all necessary roles are casted
-          if (m.conditions[k] == 'known' && !thread[k]) return false ///- all necessary knowledge is known
+          if (m.conditions[k] == 'exists' && !thread.roles[k]) return false ///- any other necessary roles are casted
+          if (m.conditions[k] == 'known' && !thread[k]) return false ///- any necessary knowledge is known
           return true
         }
       return true
