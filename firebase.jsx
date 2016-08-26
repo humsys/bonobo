@@ -1,3 +1,4 @@
+import React from 'react'
 import Firebase from 'firebase'
 
 var firebase = Firebase.initializeApp({
@@ -7,7 +8,7 @@ var firebase = Firebase.initializeApp({
   storageBucket: ""
 })
 
-<div>
+export var loginButtons = <div>
     {
   Firebase.auth().currentUser ? "Logged in" : ['Facebook', 'Google', 'Twitter'].map( m => {
       let meth = firebase.auth[m+"AuthProvider"]

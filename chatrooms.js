@@ -81,7 +81,8 @@ class ChatStorage {
 }
 
 ///**Let's try it out**\\\\First we can try the store:
-import firebase from './firebase.js'
+import firebase, {loginButtons} from './firebase.jsx'
+loginButtons
 let store = new ChatStorage(firebase.database().ref('chattytest'))
 let newGroupId = store.newGroup()
 store.post({groupId: newGroupId}, {
