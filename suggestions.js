@@ -1,14 +1,15 @@
 ///**Generating suggestions**\\\\We take a (chatroom thread, script) pair, and decide what notifications will keep the script moving along in the thread.
 function suggestions(thread, script, userId){
 	let castAsAnyOf = (roles) => roles.some(r => thread.roles[r][userId])
-    let ready = (m) => {
-        for (var k in m.conditions){ ///Conditions for a particular cue are met if:
+    let ready = (m) => { ///Conditions for a particular cue are met if:
+        ///- any requested delay has elapsed
+        if (m.conditions.delay && Date.now() - thread.ctime < m.conditions.delay) return false 
+        for (var k in m.conditions){
+            let condition = m.conditions[k]
           ///- all necessary roles are casted
-          if (m.conditions[k] == 'exists' && !thread.roles[k]) return false
+          if (condition == 'exists' && !thread.roles[k]) return false
           ///- all necessary knowledge is known
-          if (m.conditions[k] == 'known' && !thread[k]) return false
-          /// - any requested delay has elapsed
-          if (m.conditions.delay && Date.now() - thread.ctime < m.conditions.delay) return false 
+          if (condition == 'known' && !thread[k]) return false
           return true
         }
     }
