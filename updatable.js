@@ -9,6 +9,7 @@ export function update(obj,spec){
       child = child[c]
     })
   }
+  return obj
 }
 
 
@@ -26,3 +27,10 @@ export class Updatable {
     this.updating = wasUpdating
   }
 }
+
+update({}, {
+    "a": "5",
+    "data/a": "1",
+    "data/b": "2",
+    "data/c": "4"
+})
