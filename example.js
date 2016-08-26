@@ -67,5 +67,7 @@ let y = <MessageView
             script={script}
             onCast={(role, joined) => console.log(role,joined)}
             />
-///- group chrome that supports a data-centric view of group conversations, and launching new threads that have scripts attached
-//import GroupChrome from './groupChrome.jsx'
+///- a cute way to start threads with or without scripts
+//import ThreadStarterBar from './threadStarterBar.jsx'
+    
+///- and a way to view a thread as either messages or data tables
