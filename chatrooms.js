@@ -39,7 +39,8 @@ class Chatroom {
 ///**Backend**\\Here's a function that will take such a model and make sure it's backed by firebase.
 class ChatStorage {
   constructor(fbref){
-    this.user = firebase.auth().currentUser || {uid: "test", name: "Test User"}
+    let user = firebase.auth().currentUser
+    this.user = user ? { uid: user.uid, displayName: user.displayName } : {uid: "test", name: "Test User"}
     this.fbref = fbref
     this.data = {}
   }
