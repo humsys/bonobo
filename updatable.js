@@ -1,4 +1,4 @@
-|// update an object with support for deep paths
+///update an object with support for deep paths
 export function update(obj,spec){
   for (var k in spec){
     let parts = k.split('/')
@@ -11,7 +11,7 @@ export function update(obj,spec){
 }
 
 
-// update an object and trigger listeners
+///update an object and trigger listeners
 export class Updatable {
   constructor(v={}){ this.value = v; this.listeners = [] }
   on(ev, cb){ this.listeners.push(cb) }

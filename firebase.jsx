@@ -12,8 +12,7 @@ try {
     })
 }
 
-export var loginButtons = <div>
-    {
+export var loginButtons = <div>{
   Firebase.auth().currentUser ? "Logged in" : ['Facebook', 'Google', 'Twitter'].map( m => {
       let meth = firebase.auth[m+"AuthProvider"]
       return <button onClick={ () => firebase.auth().signInWithPopup( new meth() ) }>Join w {m}</button>
