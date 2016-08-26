@@ -1,6 +1,6 @@
+import {Updatable} from './updatable.js'
 
 ///**Let's model a chatroom!**\\\\In order to test this script, we're going to need a kind of a basic model of a chatroom.\\\\Like this one:
-import {Updatable} from './updatable.js'
 class Chatroom {
   constructor(storage){
     this.storage = storage
