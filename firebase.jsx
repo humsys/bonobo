@@ -18,8 +18,6 @@ export var loginButtons = <div>{
       return <button onClick={ () => firebase.auth().signInWithPopup( new meth() ) }>Join w {m}</button>
     }
   )}
-</div>
-
-loginButtons 
+</div> 
     
 export default firebase
