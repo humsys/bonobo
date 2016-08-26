@@ -54,6 +54,16 @@ let x = <MessageComposer
 
 ///- a message view that supports joining/leaving roles
 //import MessageView from './messageView.jsx'
-
+let exampleGroup = { id: 'group1', members: { joe: { uid: 'joe', displayName: 'Joe E' } }}
+let y = <Message
+            text="Hello there buddy"
+            from="joe"
+            senders={["organizer"]}
+            casts={['alpha', 'beta']}
+            thread={exampleThread}
+            group={exampleGroup}
+            script={script}
+            onCast={(role, joined) => console.log(role,joined)}
+            />
 ///- group chrome that supports a data-centric view of group conversations, and launching new threads that have scripts attached
 //import GroupChrome from './groupChrome.jsx'
