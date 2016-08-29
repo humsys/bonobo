@@ -16,14 +16,14 @@ let CastingButton = ({role, thread, script, onCast, userId}) => {
             if (confirm('Leave this role?')) return onCast(role, false)            
         }
     if (joined) return <button onClick={leave}>{title} (joined)</button>
-    else return <button onClick={join}>{title}</button>
+    else return <button onClick={join}>Join as <b>{title}</b></button>
 }
 
 
 let Header = ({from, senders, thread, group}) => {
     let fromUser = group.members[from]
     return <div className="Section Header">
-        From: {fromUser.displayName} {senders.join(', ')}
+        From: {fromUser.displayName} <i>{senders.join(', ')}</i>
     </div>
 }
 
