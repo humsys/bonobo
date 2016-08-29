@@ -55,7 +55,7 @@ let x = <MessageComposer
             />
 
 ///- a message view that supports joining/leaving roles
-//import MessageView from './messageView.jsx'
+import MessageView from './messageView.jsx'
 let exampleGroup = { id: 'group1', members: { joe: { uid: 'joe', displayName: 'Joe E' } }}
 let y = <MessageView
             text="Hello there buddy"
