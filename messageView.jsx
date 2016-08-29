@@ -5,7 +5,8 @@ let CastingButton = ({role, thread, script, onCast, userId}) => {
     let title = role,
         roleMembers = thread.roles[role] || {},
         joined = roleMembers[userId],
-        desc = script.characters[role].description,
+        roleSpec = script.characters[role] || {},
+        desc = roleSpec.description,
         join = () => {
             let confirmed = true
             if (desc) confirmed = confirm(desc)
