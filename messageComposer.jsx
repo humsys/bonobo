@@ -42,7 +42,11 @@ export default class MessageComposer extends React.Component {
                     <button onClick={ () => this.setState({open:true}) }>
                         {suggestions.length} suggs
                     </button>
-                    <input value={draftText} placeholder="Type a message..."/>
+                    <input
+                        onChange={ ev => this.setState({draftText: ev.target.value}) }
+                        value={draftText}
+                        placeholder="Type a message..."
+                    />
                     <button onClick={() => this.send()}>send</button>
                 </div>
             </div>
