@@ -29,10 +29,11 @@ class ThreadComposer extends React.Component {
 }
 
 const ThreadViewer = (props) => {
-    let {messages} = props
+    let {messages, onClose} = props
     return <div className="Column">
         <header className="bar bar-nav">
             <h1 className="title"> Thread </h1>
+            <button className="btn pull-left" onClick={onClose}> Close </button>
         </header>
         <div className="content">{
             Object.values(messages).map(m => <MessageView {...m} {...props} />)
@@ -50,7 +51,13 @@ export default class GroupFeed extends React.Component {
     render(){
         let {members} = this.props.group
         let {selectedThread} = this.state
-        if (selectedThread) return <ThreadViewer {...selectedThread} {...props} />
+        if (selectedThread){
+            return <ThreadViewer 
+                       {...selectedThread}
+                       {...props}
+                       onClose={ () => this.setState({selectedThread:null}) }
+                       />
+        }
         return <div className="Column">
             <header className="bar bar-nav">
            		<h1 className="title">
