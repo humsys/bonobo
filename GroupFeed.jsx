@@ -1,6 +1,6 @@
 import React from 'react'
-import MessageView from './messageView.jsx'
-import MessageComposer from './messageComposer.jsx'
+import MessageView from './MessageView.jsx'
+import MessageComposer from './MessageComposer.jsx'
 
 const ThreadTeaser = (props) => {
     let {thread} = props

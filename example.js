@@ -46,7 +46,7 @@ let suggestionsForJim = suggestions(exampleThread, script, 'jim')
 
 ///- a message composer that can show suggestions
 import React from 'react'
-import MessageComposer from './messageComposer.jsx'
+import MessageComposer from './MessageComposer.jsx'
 let x = <MessageComposer
             suggestions={suggestionsForJim}
             onSend={
@@ -55,7 +55,7 @@ let x = <MessageComposer
             />
 
 ///- a message view that supports joining/leaving roles
-import MessageView from './messageView.jsx'
+import MessageView from './MessageView.jsx'
 let exampleGroup = { id: 'group1', members: { joe: { uid: 'joe', displayName: 'Joe E' } }}
 let exampleMessage = {
     id: 'example01',
@@ -73,7 +73,7 @@ let y = <MessageView
             onCast={(role, joined) => console.log(role,joined)}
             />
 ///- a cute way to start threads with or without scripts
-import GroupFeed from './groupFeed.jsx'
+import GroupFeed from './GroupFeed.jsx'
 exampleThread.messages = { [exampleMessage.id]: exampleMessage }
 exampleGroup.threads = { [exampleThread.id]: exampleThread }
 let z = <GroupFeed group={exampleGroup} userId="jim" />
