@@ -79,3 +79,5 @@ exampleGroup.threads = { [exampleThread.id]: exampleThread }
 let z = <GroupFeed group={exampleGroup} userId="jim" />
 ///- and a way to view a thread as either messages or data tables
 //TBD
+    
+// actions: onPostNewThread, onCast, onSend

@@ -21,9 +21,21 @@ class ThreadComposer extends React.Component {
         let {draftText=""} = this.state
         let {group, userId, onPostNewThread} = this.props
         return <form>
-            <input placeholder="Type a message..." />
-            <button>Submit</button>
-            <button>Start script</button>
+            <input
+                value={draftText}
+                onChange={ ev => this.setState({draftText: ev.target.value}) }
+                placeholder="Type a message..." 
+            />
+            <button onClick={() => {
+            	if (!draftText) return
+		        this.props.onPostNewThread(group, draftText)
+        		this.setState({ draftText: "" })
+            }}>Submit</button>
+            <button onClick={()=>{
+                let script = prompt('Enter a script!')
+                this.props.onPostNewThread(group, draftText, script)
+                this.setState({ draftText: "" })
+            }}>Start script</button>
         </form>
     }
 }
