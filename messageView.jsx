@@ -1,4 +1,3 @@
-
 import React from 'react'
 
 let CastingButton = ({role, thread, script, onCast, userId}) => {

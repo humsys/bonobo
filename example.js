@@ -57,18 +57,25 @@ let x = <MessageComposer
 ///- a message view that supports joining/leaving roles
 import MessageView from './messageView.jsx'
 let exampleGroup = { id: 'group1', members: { joe: { uid: 'joe', displayName: 'Joe E' } }}
+let exampleMessage = {
+    id: 'example01',
+    text: "Hello there buddy",
+    from: 'joe',
+    senders: ["organizer"],
+    casts: ['alpha', 'beta']
+}
 let y = <MessageView
-            text="Hello there buddy"
-            from="joe"
-            senders={["organizer"]}
-            casts={['alpha', 'beta']}
+            {...exampleMessage}
+            userId="jim"
             thread={exampleThread}
             group={exampleGroup}
             script={script}
             onCast={(role, joined) => console.log(role,joined)}
             />
 ///- a cute way to start threads with or without scripts
-//import ThreadStarterBar from './threadStarterBar.jsx'
-    
+import GroupFeed from './groupFeed.jsx'
+exampleThread.messages = { [exampleMessage.id]: exampleMessage }
+exampleGroup.threads = { [exampleThread.id]: exampleThread }
+let z = <GroupFeed group={exampleGroup} userId="jim" />
 ///- and a way to view a thread as either messages or data tables
 //TBD
