@@ -1,4 +1,7 @@
 import React from 'react'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import Toolbar from 'material-ui/Toolbar'
+
 export default class MessageComposer extends React.Component {
     constructor(props){
         super(props)
@@ -17,7 +20,8 @@ export default class MessageComposer extends React.Component {
         let {suggestions, onSend} = this.props
         if (open){
             // it's a list of suggestions
-            return <div className="composer">
+            return <MuiThemeProvider>
+                <div className="composer">
                 <div className="table-view"> {
                     suggestions.map(s => (
                         <div onClick={
@@ -34,11 +38,13 @@ export default class MessageComposer extends React.Component {
                         {suggestions.length} suggs
                     </button>
                 </div>
-            </div>
+            	</div>
+            </MuiThemeProvider>
         } else {
             // it's a toolbar and textfield
-            return <div className="composer">
-                <div className="row">
+            return  <MuiThemeProvider>
+                <div className="composer">
+                <Toolbar>
                     <button onClick={ () => this.setState({open:true}) }>
                         {suggestions.length} suggs
                     </button>
@@ -48,8 +54,9 @@ export default class MessageComposer extends React.Component {
                         placeholder="Type a message..."
                     />
                     <button onClick={() => this.send()}>send</button>
-                </div>
+                </Toolbar>
             </div>
+            </MuiThemeProvider>
         }
     }
 }
