@@ -1,6 +1,7 @@
 import React from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Toolbar from 'material-ui/Toolbar'
+import RaisedButton from 'material-ui/RaisedButton'
 
 export default class MessageComposer extends React.Component {
     constructor(props){
@@ -20,7 +21,7 @@ export default class MessageComposer extends React.Component {
         let {suggestions, onSend} = this.props
         if (open){
             // it's a list of suggestions
-            return <MuiThemeProvider>
+            return <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                 <div className="composer">
                 <div className="table-view"> {
                     suggestions.map(s => (
@@ -45,9 +46,11 @@ export default class MessageComposer extends React.Component {
             return  <MuiThemeProvider>
                 <div className="composer">
                 <Toolbar>
-                    <button onClick={ () => this.setState({open:true}) }>
-                        {suggestions.length} suggs
-                    </button>
+                    <RaisedButton 
+                        label={`${suggestions.length} suggs`} 
+                        primary={true} 
+                        onClick={ () => this.setState({open:true}) }
+                    />
                     <input
                         onChange={ ev => this.setState({draftText: ev.target.value}) }
                         value={draftText}
