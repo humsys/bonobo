@@ -6,7 +6,7 @@ const ThreadTeaser = (props) => {
     let {thread} = props
     let messageIds = Object.keys(thread.messages || {}).sort()
     let firstMessage = thread.messages && thread.messages[messageIds[0]]
-    return <MessageView {...firstMessage} {...props}>
+    return <MessageView {...firstMessage} {...thread} {...props}>
         {messageIds.length - 1} replies
     </MessageView>
 }
@@ -66,7 +66,7 @@ export default class GroupFeed extends React.Component {
         if (selectedThread){
             return <ThreadViewer 
                        {...selectedThread}
-                       {...props}
+                       {...this.props}
                        onClose={ () => this.setState({selectedThread:null}) }
                        />
         }
@@ -77,13 +77,13 @@ export default class GroupFeed extends React.Component {
             	</h1>
             </header>
             <div className="content">
-                <ThreadComposer {...props} />
+                <ThreadComposer {...this.props} />
                 {
-                    Object.keys(props.group.threads).map(threadId => (
+                    Object.keys(this.props.group.threads).map(threadId => (
                         <ThreadTeaser
-                            thread={props.group.threads[threadId]}
-                            onClick={() => this.setState({selectedThread: props.group.threads[threadId]})}
-                            {...props} 
+                            thread={this.props.group.threads[threadId]}
+                            onClick={() => this.setState({selectedThread: this.props.group.threads[threadId]})}
+                            {...this.props} 
                         />
                     ))
                 }
