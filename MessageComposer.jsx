@@ -42,17 +42,11 @@ export default class MessageComposer extends React.Component {
                         </div>
                     ))
                 }</div>
-                <div className="row">
-                    <button onClick={ () => this.setState({open:false}) }>
-                        {suggestions.length} suggs
-                    </button>
-                </div>
+                {row}
             </div>
         } else {
             // it's a toolbar and textfield
-            return  <div className="composer">
-                
-            </div>
+            return  <div className="composer"> {row} </div>
         }
     }
 }

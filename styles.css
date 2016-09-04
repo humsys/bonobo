@@ -7,3 +7,22 @@
     flex: auto;
     margin: 0px 2px;
 }
+
+.table-view-cell {
+    padding: 10px;
+}
+
+.MessageView.Card {
+    box-shadow: black 0px 1px 1px;
+    border-radius: 5px;
+    margin: 5px 10px;
+}
+
+.Card .Section {
+    border-bottom: 1px solid gray;
+    padding: 5px 10px;
+}
+
+.Card .Header {
+    background: #eee;
+}
