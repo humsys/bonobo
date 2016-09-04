@@ -1,0 +1,9 @@
+.row {
+ 	display:flex;
+    padding: 2px; 
+}
+
+.row input {
+    flex: auto;
+    margin: 0px 2px;
+}

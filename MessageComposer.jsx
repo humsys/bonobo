@@ -1,7 +1,5 @@
 import React from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import Toolbar from 'material-ui/Toolbar'
-import RaisedButton from 'material-ui/RaisedButton'
+import './styles.css'
 
 export default class MessageComposer extends React.Component {
     constructor(props){
@@ -19,10 +17,20 @@ export default class MessageComposer extends React.Component {
     render(){
         let {open, draftText=""} = this.state
         let {suggestions, onSend} = this.props
+        let row = <div className="row">
+                    <button  onClick={ () => this.setState({open:!this.state.open}) } >
+                        {suggestions.length} suggs
+                    </button>
+                    <input
+                        onChange={ ev => this.setState({draftText: ev.target.value}) }
+                        value={draftText}
+                        placeholder="Type a message..."
+                    />
+                    <button onClick={() => this.send()}>send</button>
+                </div>
         if (open){
             // it's a list of suggestions
-            return <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                <div className="composer">
+            return  <div className="composer">
                 <div className="table-view"> {
                     suggestions.map(s => (
                         <div onClick={
@@ -39,27 +47,12 @@ export default class MessageComposer extends React.Component {
                         {suggestions.length} suggs
                     </button>
                 </div>
-            	</div>
-            </MuiThemeProvider>
+            </div>
         } else {
             // it's a toolbar and textfield
-            return  <MuiThemeProvider>
-                <div className="composer">
-                <Toolbar>
-                    <RaisedButton 
-                        label={`${suggestions.length} suggs`} 
-                        primary={true} 
-                        onClick={ () => this.setState({open:true}) }
-                    />
-                    <input
-                        onChange={ ev => this.setState({draftText: ev.target.value}) }
-                        value={draftText}
-                        placeholder="Type a message..."
-                    />
-                    <button onClick={() => this.send()}>send</button>
-                </Toolbar>
+            return  <div className="composer">
+                
             </div>
-            </MuiThemeProvider>
         }
     }
 }
