@@ -1,7 +1,5 @@
 let user, groups, query;
 
-
-
 export function liveData(fbRoot, cb){
   let go = () => {
     cb({user, groups})
@@ -14,9 +12,6 @@ export function liveData(fbRoot, cb){
   user = firebase.auth().currentUser
   go()
 }
-
-
-
 
 export function actions(fbRoot, user){
 

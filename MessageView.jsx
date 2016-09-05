@@ -19,7 +19,7 @@ let CastingButton = ({role, thread, script, cast, userId}) => {
 }
 
 
-let Header = ({from, senders, thread, group}) => {
+let Header = ({from, senders=[], thread, group}) => {
     let fromUser = group.members[from]
     return <div className="Section Header">
         From: {fromUser.displayName} <i>{senders.join(', ')}</i>
@@ -27,11 +27,10 @@ let Header = ({from, senders, thread, group}) => {
 }
 
 let Buttons = (props) => {
-    if (props.casts && props.casts.length){
-        return <div className="Section Buttons">
-	        {props.casts.map(r => <CastingButton role={r} {...props} />)}
-	    </div>
-    }
+    if (!props.casts || !props.casts.length) return
+    return <div className="Section Buttons">
+        {props.casts.map(r => <CastingButton role={r} {...props} />)}
+    </div>
 }
 
 const MessageView = (props) => (
