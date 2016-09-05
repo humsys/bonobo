@@ -1,13 +1,13 @@
-let user, data, query;
+let user, groups, query;
 
 
 
 export function liveData(fbRoot, cb){
   let go = () => {
-    cb({user, data})
+    cb({user, groups})
     if (user && !query){
       query = fbRoot.child('groups').orderByChild(`members/${user.uid}`)
-      query.on('value', s => { data = s.val() || {}; go() })
+      query.on('value', s => { groups = s.val() || {}; go() })
     }
   }
   firebase.auth().onAuthStateChanged(u => { user = u; go() })

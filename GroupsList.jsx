@@ -1,16 +1,14 @@
 import React from 'react'
 import GroupFeed from './GroupFeed.jsx'
 
-let GroupCell = ({group}) => (
-  <div
-    className="table-view-cell group"
-    onClick={() => viewState.update({selectedGroup: group.id})}
-    >
+let GroupCell = ({group, onClick}) => (
+  <div className="table-view-cell group" onClick={onClick}>
     Group: {group.id}
-    <Participants group={group}/>
+    <p>
+        {Object.values(group.members).map(m => <b>{m.displayName}</b>)}
+    </p>
   </div>
-)
-
+)                   
 
 export default class GroupsList extends React.Component {
   constructor(props){
@@ -39,9 +37,13 @@ export default class GroupsList extends React.Component {
           </button>
         </header>
         <div className="content">
-          <div className="table-view">
-            { Object.values(this.props.groups).map(g => <GroupCell group={g} />) }
-          </div>
+          <div className="table-view">{
+              Object.values(this.props.groups).map(
+                  g => <GroupCell group={g} {...this.props} onClick={
+                      () => this.setState({selectedGroup: g.id})
+                  } />
+              ) 
+          }</div>
         </div>
       </div>
     )
