@@ -40,7 +40,7 @@
     position: relative;
     min-width: 400;
     min-height: 920;
-    padding-top: 40px;
+    padding-top: 60px;
 }
 
 .Screen header {
@@ -54,14 +54,18 @@
 .Screen header h1 {
     padding:0; margin:0;
     text-align: center;
+    font-size: 18px;
+}
+.Screen header h1 p {
+    font-size: 12px;
+    font-weight: normal;
+    margin:0;
 }
 
-.Screen header button.pull-left {
-    position: absolute;
-    left: 0px;
-}
 
-.Screen header button.pull-right {
+.Screen header button {
     position: absolute;
-    right: 0px;
+    top: 0px;
 }
+.Screen header button.pull-left { left: 0px; }
+.Screen header button.pull-right { right: 0px; }

@@ -1,6 +1,7 @@
 import React from 'react'
 import MessageView from './MessageView.jsx'
 import MessageComposer from './MessageComposer.jsx'
+import suggestions from './suggestions.js'
 
 const ThreadTeaser = (props) => {
     let {thread} = props
@@ -76,7 +77,10 @@ export default class GroupFeed extends React.Component {
         return <div className="Screen">
             <header className="bar bar-nav">
            		<h1 className="title">
-                    {Object.values(members).map(m => <b>{m.displayName}</b>)}
+                    {this.props.group.id}
+                    <p>
+                        {Object.values(members).map(m => <b>{m.displayName}</b>)}
+                    </p>
             	</h1>
             </header>
             <div className="content">
