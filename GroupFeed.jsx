@@ -67,6 +67,7 @@ export default class GroupFeed extends React.Component {
         let {selectedThread} = this.state
         if (selectedThread){
             return <ThreadViewer 
+                       thread={selectedThread}
                        {...selectedThread}
                        {...this.props}
                        onClose={ () => this.setState({selectedThread:null}) }

@@ -55,3 +55,13 @@
     padding:0; margin:0;
     text-align: center;
 }
+
+.Screen header button.pull-left {
+    position: absolute;
+    left: 0px;
+}
+
+.Screen header button.pull-right {
+    position: absolute;
+    right: 0px;
+}

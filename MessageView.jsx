@@ -35,7 +35,7 @@ let Buttons = (props) => {
 }
 
 const MessageView = (props) => (
-    <div className="MessageView Card">
+    <div className="MessageView Card" onClick={props.onClick}>
         <Header {...props} />
         <div className="Section Body">{props.text}</div>
         <Buttons {...props} />
