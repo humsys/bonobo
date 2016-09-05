@@ -86,7 +86,7 @@ export default class GroupFeed extends React.Component {
             <div className="content">
                 <ThreadComposer {...this.props} />
                 {
-                    Object.keys(this.props.group.threads).map(threadId => (
+                    Object.keys(this.props.group.threads || {}).map(threadId => (
                         <ThreadTeaser
                             thread={this.props.group.threads[threadId]}
                             onClick={() => this.setState({selectedThread: this.props.group.threads[threadId]})}
