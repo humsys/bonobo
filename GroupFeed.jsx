@@ -29,12 +29,14 @@ class ThreadComposer extends React.Component {
                 onChange={ ev => this.setState({draftText: ev.target.value}) }
                 placeholder="Type a message..."
             />
-            <button onClick={() => {
+            <button onClick={ev => {
+                ev.preventDefault()
             	if (!draftText) return
 		        newThread(group, draftText)
         		this.setState({ draftText: "" })
             }}>Submit</button>
-            <button onClick={()=>{
+            <button onClick={ev=>{
+                ev.preventDefault()
                 let script = prompt('Enter a script!')
                 newThread(group, draftText, script)
                 this.setState({ draftText: "" })
