@@ -27,7 +27,7 @@ let Header = ({from, senders=[], thread, group}) => {
 }
 
 let Buttons = (props) => {
-    if (!props.casts || !props.casts.length) return
+    if (!props.casts || !props.casts.length) return null
     return <div className="Section Buttons">
         {props.casts.map(r => <CastingButton role={r} {...props} />)}
     </div>
