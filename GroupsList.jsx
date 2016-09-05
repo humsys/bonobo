@@ -1,5 +1,5 @@
 import React from 'react'
-
+import GroupFeed from './GroupFeed.jsx'
 
 let GroupCell = ({group}) => (
   <div
@@ -24,7 +24,7 @@ export default class GroupsList extends React.Component {
     if (selectedGroup){
       return <GroupFeed
         onClose={ () => this.setState({selectedGroup:null}) }
-        group={groups[selectedGroup]}
+        group={groups[selectedGroup] || { members: {} }}
         {...this.props}
         />
     }
