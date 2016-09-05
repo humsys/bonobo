@@ -17,7 +17,7 @@ organizer:
 -- 4 days --
 
 organizer:
-  @attending see you all soon! 
+  @attending see you all soon!
 `
 
 
@@ -43,16 +43,16 @@ let exampleThread = {
 suggestions(exampleThread, script, 'joe')
 let suggestionsForJim = suggestions(exampleThread, script, 'jim')
 
-///Further below, we'll build a little chatroom interface that lets you do ordinary things\\- send ordinary messages//- start/join groups and threads\\And extraordinary things\\- attach scripts to threads//- join and leave roles as part of a thread//- collect/view thread data//- and follow suggestions\\\\\\In particular, we'll make: 
+///Further below, we'll build a little chatroom interface that lets you do ordinary things\\- send ordinary messages//- start/join groups and threads\\And extraordinary things\\- attach scripts to threads//- join and leave roles as part of a thread//- collect/view thread data//- and follow suggestions\\\\\\In particular, we'll make:
 
 ///- a message composer that can show suggestions
 import React from 'react'
 import MessageComposer from './MessageComposer.jsx'
 let x = <MessageComposer
             suggestions={suggestionsForJim}
-            onSend={
-            	(text, suggestion) => console.log(text, suggestion)
-        	} 
+            send={
+            	(thread, text, suggestion) => console.log(text, suggestion)
+        	}
             />
 
 ///- a message view that supports joining/leaving roles
@@ -71,7 +71,7 @@ let y = <MessageView
             thread={exampleThread}
             group={exampleGroup}
             script={script}
-            onCast={(role, joined) => console.log(role,joined)}
+            cast={(thread, role, joined) => console.log(role,joined)}
             />
 ///- a cute way to start threads with or without scripts
 import GroupFeed from './GroupFeed.jsx'
@@ -80,5 +80,3 @@ exampleGroup.threads = { [exampleThread.id]: exampleThread }
 let z = <GroupFeed group={exampleGroup} userId="jim" />
 ///- and a way to view a thread as either messages or data tables
 //TBD
-    
-// actions: onPostNewThread, onCast, onSend

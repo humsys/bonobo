@@ -1,6 +1,6 @@
 import React from 'react'
 
-let CastingButton = ({role, thread, script, onCast, userId}) => {
+let CastingButton = ({role, thread, script, cast, userId}) => {
     let title = role,
         roleMembers = thread.roles[role] || {},
         joined = roleMembers[userId],
@@ -9,10 +9,10 @@ let CastingButton = ({role, thread, script, onCast, userId}) => {
         join = () => {
             let confirmed = true
             if (desc) confirmed = confirm(desc)
-            if (confirmed) onCast(role, true)
+            if (confirmed) cast(thread, role, true)
         },
         leave = () => {
-            if (confirm('Leave this role?')) return onCast(role, false)            
+            if (confirm('Leave this role?')) return cast(thread, role, false)
         }
     if (joined) return <button onClick={leave}>{title} (joined)</button>
     else return <button onClick={join}>Join as <b>{title}</b></button>
@@ -40,7 +40,7 @@ const MessageView = (props) => (
         <div className="Section Body">{props.text}</div>
         <Buttons {...props} />
         {props.children}
-    </div>    
+    </div>
 )
 
 export default MessageView

@@ -22,21 +22,21 @@ class ThreadComposer extends React.Component {
 
     render(){
         let {draftText=""} = this.state
-        let {group, userId, onPostNewThread} = this.props
+        let {group, userId, newThread} = this.props
         return <form className="row Palette">
             <input
                 value={draftText}
                 onChange={ ev => this.setState({draftText: ev.target.value}) }
-                placeholder="Type a message..." 
+                placeholder="Type a message..."
             />
             <button onClick={() => {
             	if (!draftText) return
-		        this.props.onPostNewThread(group, draftText)
+		        newThread(group, draftText)
         		this.setState({ draftText: "" })
             }}>Submit</button>
             <button onClick={()=>{
                 let script = prompt('Enter a script!')
-                this.props.onPostNewThread(group, draftText, script)
+                newThread(group, draftText, script)
                 this.setState({ draftText: "" })
             }}>Start script</button>
         </form>
@@ -62,12 +62,12 @@ export default class GroupFeed extends React.Component {
         super(props)
         this.state = { selectedThread: null }
     }
-    
+
     render(){
         let {members} = this.props.group
         let {selectedThread} = this.state
         if (selectedThread){
-            return <ThreadViewer 
+            return <ThreadViewer
                        thread={selectedThread}
                        {...selectedThread}
                        {...this.props}
@@ -90,7 +90,7 @@ export default class GroupFeed extends React.Component {
                         <ThreadTeaser
                             thread={this.props.group.threads[threadId]}
                             onClick={() => this.setState({selectedThread: this.props.group.threads[threadId]})}
-                            {...this.props} 
+                            {...this.props}
                         />
                     ))
                 }

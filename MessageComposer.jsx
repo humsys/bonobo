@@ -6,17 +6,18 @@ export default class MessageComposer extends React.Component {
         super(props)
         this.state = { open: false }
     }
-    
+
     send(){
         let {draftText, activeSuggestion} = this.state
+        let {thread, send} = this.props
         if (!draftText) return
-        this.props.onSend(draftText, activeSuggestion)
+        send(thread, draftText, activeSuggestion)
         this.setState({ draftText: "", activeSuggestion: null })
     }
-    
+
     render(){
         let {open, draftText=""} = this.state
-        let {suggestions, onSend} = this.props
+        let {suggestions} = this.props
         let row = <div className="row">
                     <button  onClick={ () => this.setState({open:!this.state.open}) } >
                         {suggestions.length} suggs

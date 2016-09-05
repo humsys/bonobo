@@ -1,23 +1,37 @@
-///### Frontend\\### Adding buttons to join roles\\### Adding an empty notification count and screen\\### Adding a script runner\\### Showing notifications based on the thread's script\\### The data view
+import React from 'react'
+import Firebase from 'firebase'
+import {liveData, actions} from './storage.js'
+import './GroupsList.jsx'
 
-let GroupCell = ({group}) => (
-  <div
-    className="table-view-cell group"
-    onClick={() => viewState.update({selectedGroup: group.id})}
-    >
-    Group: {group.id}
-    <Participants group={group}/>
+try { firebase.app() } catch (e){
+  Firebase.initializeApp({
+    apiKey: "AIzaSyBm9oAcCktnQlaxNS1GvyraDGV7QtA6d78",
+    authDomain: "bastard-183be.firebaseapp.com",
+    databaseURL: "https://bastard-183be.firebaseio.com",
+    storageBucket: ""
+  })
+}
+
+const LoginButtons = () => (
+  <div>{
+    Firebase.auth().currentUser ? "Logged in" : ['Facebook', 'Google', 'Twitter'].map( m => {
+        let meth = firebase.auth[m+"AuthProvider"]
+        return <button onClick={ () => firebase.auth().signInWithPopup( new meth() ) }>Join w {m}</button>
+      }
+    )}
   </div>
 )
 
-let GroupsColumn = (props) => (
-  <Column
-    title="Your Groups"
-    leftButton={['alert', () => viewState.update({showNotifications:true})]}
-    rightButton={['add', () => props.cx.newGroup()]}
-    >
-    <div className="table-view">
-      { Object.values(props.groups).map(g => <GroupCell group={g} />) }
-    </div>
-  </Column>
-)
+export default class ChatterbaseApp extends React.Component {
+  constructor(p){ super(p); this.state = {} }
+  componentWillMount(){ liveData(FB_ROOT, s => this.setState(s)) }
+  render(){
+    let {user, groups} = this.state
+    if (!user) return <LoginButtons />
+    let actionMethods = actions(FB_ROOT, {
+      uid: user.uid,
+      displayName: user.displayName
+    })
+    return <GroupsList groups={groups} userId={user.uid} {...actionMethods} />
+  }
+}
