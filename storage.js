@@ -10,7 +10,7 @@ export function liveData(fbRoot, cb){
       query.on('value', s => { data = s.val() || {}; go() })
     }
   }
-  firebase.auth().onAuthChanged(u => { user = u; go() })
+  firebase.auth().onAuthStateChanged(u => { user = u; go() })
   user = firebase.auth().currentUser
   go()
 }

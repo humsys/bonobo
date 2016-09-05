@@ -1,7 +1,7 @@
 import React from 'react'
 import Firebase from 'firebase'
 import {liveData, actions} from './storage.js'
-import './GroupsList.jsx'
+import GroupsList from './GroupsList.jsx'
 
 try { firebase.app() } catch (e){
   Firebase.initializeApp({
@@ -21,6 +21,8 @@ const LoginButtons = () => (
     )}
   </div>
 )
+
+const FB_ROOT = firebase.database().ref('chattytest')
 
 export default class ChatterbaseApp extends React.Component {
   constructor(p){ super(p); this.state = {} }

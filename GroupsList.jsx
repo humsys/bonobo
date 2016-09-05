@@ -25,7 +25,7 @@ export default class GroupsList extends React.Component {
       return <GroupFeed
         onClose={ () => this.setState({selectedGroup:null}) }
         group={groups[selectedGroup]}
-        {...props}
+        {...this.props}
         />
     }
     return (
@@ -40,7 +40,7 @@ export default class GroupsList extends React.Component {
         </header>
         <div className="content">
           <div className="table-view">
-            { Object.values(props.groups).map(g => <GroupCell group={g} />) }
+            { Object.values(this.props.groups).map(g => <GroupCell group={g} />) }
           </div>
         </div>
       </div>
