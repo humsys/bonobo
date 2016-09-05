@@ -36,7 +36,8 @@ let exampleThread = {
     roles: {
         organizer: { joe: true },
         members: { jim: true }
-    }    
+    },
+    script: script
 }
 
 suggestions(exampleThread, script, 'joe')

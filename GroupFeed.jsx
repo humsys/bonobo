@@ -6,7 +6,9 @@ const ThreadTeaser = (props) => {
     let {thread} = props
     let messageIds = Object.keys(thread.messages || {}).sort()
     let firstMessage = thread.messages && thread.messages[messageIds[0]]
-    return <MessageView {...firstMessage} {...thread} {...props}>
+    return <MessageView {...firstMessage}
+               script={thread.script}
+               {...props}>
         {messageIds.length - 1} replies
     </MessageView>
 }
@@ -20,7 +22,7 @@ class ThreadComposer extends React.Component {
     render(){
         let {draftText=""} = this.state
         let {group, userId, onPostNewThread} = this.props
-        return <form>
+        return <form className="row Palette">
             <input
                 value={draftText}
                 onChange={ ev => this.setState({draftText: ev.target.value}) }
@@ -42,7 +44,7 @@ class ThreadComposer extends React.Component {
 
 const ThreadViewer = (props) => {
     let {messages, onClose} = props
-    return <div className="Column">
+    return <div className="Screen">
         <header className="bar bar-nav">
             <h1 className="title"> Thread </h1>
             <button className="btn pull-left" onClick={onClose}> Close </button>
@@ -70,7 +72,7 @@ export default class GroupFeed extends React.Component {
                        onClose={ () => this.setState({selectedThread:null}) }
                        />
         }
-        return <div className="Column">
+        return <div className="Screen">
             <header className="bar bar-nav">
            		<h1 className="title">
                     {Object.values(members).map(m => <b>{m.displayName}</b>)}
