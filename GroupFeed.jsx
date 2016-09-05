@@ -43,7 +43,7 @@ class ThreadComposer extends React.Component {
 }
 
 const ThreadViewer = (props) => {
-    let {messages, onClose} = props
+    let {messages, onClose, thread, script, userId} = props
     return <div className="Screen">
         <header className="bar bar-nav">
             <h1 className="title"> Thread </h1>
@@ -52,7 +52,7 @@ const ThreadViewer = (props) => {
         <div className="content">{
             Object.values(messages).map(m => <MessageView {...m} {...props} />)
         }</div>
-        <MessageComposer {...props} />
+        <MessageComposer {...props} suggestions={suggestions(thread, script, userId)} />
     </div>
 }
 
