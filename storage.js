@@ -36,7 +36,7 @@ export function actions(fbRoot, user){
   }
 
   return {
-    newThread(group, draftText, script){
+    newThread(group, draftText, script = null){
       let msg = messageFromText(draftText)
       let thread = { id: msg.id, groupId: group.id }
       updateThread(thread, {
