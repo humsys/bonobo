@@ -24,7 +24,7 @@ export default class GroupsList extends React.Component {
     if (selectedGroup){
       return <GroupFeed
         onClose={ () => this.setState({selectedGroup:null}) }
-        group={groups[selectedGroup] || { members: {} }}
+        group={groups[selectedGroup] || { id: selectedGroup, members: {} }}
         {...this.props}
         />
     }
