@@ -42,7 +42,7 @@ export function actions(fbRoot, user){
       updateThread(thread, {
         id: thread.id,
         groupId: group.id,
-        script: script,
+        script: script || null,
         [`messages/${msg.id}`]: msg
       })
     },
