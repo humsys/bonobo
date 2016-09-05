@@ -34,6 +34,6 @@ export default class ChatterbaseApp extends React.Component {
       uid: user.uid,
       displayName: user.displayName
     })
-    return <GroupsList groups={groups} userId={user.uid} {...actionMethods} />
+    return <GroupsList groups={groups||{}} userId={user.uid} {...actionMethods} />
   }
 }
