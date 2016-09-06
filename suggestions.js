@@ -1,7 +1,10 @@
 ///**Generating suggestions**\\\\We take a (thread, script, userId) pair, and decide what notifications to that user will keep the script moving along in the thread.
 function suggestions(thread, script, userId){
     if (!script) return []
-	let castAsAnyOf = (roles) => roles.some(r => thread.roles[r][userId])
+    if (!thread.roles) thread.roles = {}
+	let castAsAnyOf = (roles) => roles.some(
+        r => thread.roles[r] && thread.roles[r][userId]
+    )
     return script.cues.filter(m => { ///Each notification relates to a cue from the script. Conditions for a particular cue are met if:
       
       if (!castAsAnyOf(m.senders)) return false ///- the user is casted as a sender of the cue
