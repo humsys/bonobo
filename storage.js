@@ -40,6 +40,7 @@ export function actions(fbRoot, user){
         id: thread.id,
         groupId: group.id,
         script: Parser.parse(script),
+        roles: { organizer: { [user.uid]: true } },
         [`messages/${msg.id}`]: msg
       })
     },
