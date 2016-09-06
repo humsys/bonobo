@@ -39,8 +39,9 @@ export function actions(fbRoot, user){
       updateThread(thread, {
         id: thread.id,
         groupId: group.id,
-        script: Parser.parse(script),
+        script: script && Parser.parse(script),
         roles: { organizer: { [user.uid]: true } },
+        ctime: Date.now(),
         [`messages/${msg.id}`]: msg
       })
     },

@@ -10,7 +10,9 @@ const ThreadTeaser = (props) => {
     return <MessageView {...firstMessage}
                script={thread.script}
                {...props}>
-        {messageIds.length - 1} replies
+     <div className="CardFooter">
+       {messageIds.length - 1} replies; <i>{new Date(thread.ctime).toLocaleString()}</i>
+     </div>
     </MessageView>
 }
 
@@ -66,7 +68,8 @@ export default class GroupFeed extends React.Component {
     }
 
     render(){
-        let {members} = this.props.group
+        let {group, onClose} = this.props
+        let {members} = group
         let {selectedThread} = this.state
         if (selectedThread){
             return <ThreadViewer
@@ -76,22 +79,24 @@ export default class GroupFeed extends React.Component {
                        onClose={ () => this.setState({selectedThread:null}) }
                        />
         }
+        let threadIds = Object.keys(group.threads || {}).sort().reverse()
         return <div className="Screen">
             <header className="bar bar-nav">
            		<h1 className="title">
-                    {this.props.group.id}
+                    {group.id}
                     <p>
                         {Object.values(members).map(m => <b>{m.displayName}</b>)}
                     </p>
+                    <button className="btn pull-left" onClick={onClose}> Close </button>
             	</h1>
             </header>
             <div className="content">
                 <ThreadComposer {...this.props} />
                 {
-                    Object.keys(this.props.group.threads || {}).map(threadId => (
+                    threadIds.map(threadId => (
                         <ThreadTeaser
-                            thread={this.props.group.threads[threadId]}
-                            onClick={() => this.setState({selectedThread: this.props.group.threads[threadId]})}
+                            thread={group.threads[threadId]}
+                            onClick={() => this.setState({selectedThread: group.threads[threadId]})}
                             {...this.props}
                         />
                     ))

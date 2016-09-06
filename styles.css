@@ -1,6 +1,10 @@
+body {
+  font-family: sans-serif;
+}
+
 .row {
  	display:flex;
-    padding: 2px; 
+    padding: 2px;
 }
 
 .row input {
@@ -12,19 +16,32 @@
     padding: 10px;
 }
 
-.MessageView.Card {
-    box-shadow: black 0px 1px 1px;
+.MessageView .Card {
+    box-shadow: black 0px 0px 2px;
     border-radius: 5px;
     margin: 5px 10px;
 }
 
-.Card .Section {
-    border-bottom: 1px solid gray;
+.MessageView {
+  margin-bottom: 20px;
+}
+
+.Card .Section, .Card .MainSection {
     padding: 5px 10px;
 }
 
-.Card .Header {
-    background: #eee;
+.CardHeader, .CardFooter {
+  padding: 0px 20px;
+  font-size: 12px;
+}
+
+.CardHeader{
+  color: #555;
+}
+
+.CardFooter{
+  text-align: center;
+  color: #888;
 }
 
 .Palette {

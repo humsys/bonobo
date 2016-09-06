@@ -21,8 +21,8 @@ let CastingButton = ({role, thread, script, cast, userId}) => {
 
 let Header = ({from, senders=[], thread, group}) => {
     let fromUser = group.members[from]
-    return <div className="Section Header">
-        From: {fromUser.displayName} <i>{senders.join(', ')}</i>
+    return <div className="CardHeader">
+        <b>{fromUser.displayName}</b> <i>{senders.join(', ')}</i>
     </div>
 }
 
@@ -34,12 +34,14 @@ let Buttons = (props) => {
 }
 
 const MessageView = (props) => (
-    <div className="MessageView Card" onClick={props.onClick}>
-        <Header {...props} />
-        <div className="Section Body">{props.text}</div>
+  <div className="MessageView">
+    <Header {...props} />
+    <div className="Card" onClick={props.onClick}>
+        <div className="MainSection Body">{props.text}</div>
         <Buttons {...props} />
-        {props.children}
     </div>
+    {props.children}
+  </div>
 )
 
 export default MessageView
