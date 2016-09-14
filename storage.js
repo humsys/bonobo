@@ -1,6 +1,13 @@
 import Parser from './parser.js'
 
-let user, groups, query;
+let user, groups, query, m;
+
+// support test users
+if (m = location.hash.match(/\((.*?);(.*?)\)/)){
+  console.log('matched!', m)
+  user = { uid: m[1], displayName: m[2] }
+}
+
 
 export function liveData(fbRoot, cb){
   let go = () => {
@@ -10,40 +17,46 @@ export function liveData(fbRoot, cb){
       query.on('value', s => { groups = s.val() || {}; go() })
     }
   }
-  firebase.auth().onAuthStateChanged(u => { user = u; go() })
-  user = firebase.auth().currentUser
+  if (!user) {
+    firebase.auth().onAuthStateChanged(u => { user = u; go() })
+    user = firebase.auth().currentUser
+  }
   go()
 }
 
 export function actions(fbRoot, user){
 
   let messageFromText = (text) => {
-    return {
-      id: fbRoot.push().key,
-      from: user.uid,
-      text: text
-    }
+    let msg = Parser.parseMessage(text)
+    msg.id = fbRoot.push().key
+    msg.from = user.uid
+    return msg
   }
 
   let updateThread = (thread, update) => {
     let thr = fbRoot.child(`groups/${thread.groupId}/threads/${thread.id}`)
+    update.mtime = Date.now()
     thr.update(update)
     let gr = fbRoot.child(`groups/${thread.groupId}`)
-    gr.child(`members/${user.uid}`).set(user)
+    gr.update({
+      [`members/${user.uid}`]: user,
+      mtime: Date.now()
+    })
   }
 
   return {
     newThread(group, draftText, script = null){
       let msg = messageFromText(draftText)
-      let thread = { id: msg.id, groupId: group.id }
-      updateThread(thread, {
-        id: thread.id,
+      let thread = {
+        id: msg.id,
         groupId: group.id,
         script: script && Parser.parse(script),
         roles: { organizer: { [user.uid]: true } },
         ctime: Date.now(),
-        [`messages/${msg.id}`]: msg
-      })
+        mtime: Date.now()
+      }
+      if (draftText) thread[`messages/${msg.id}`] = msg
+      updateThread(thread, thread)
     },
 
     newGroup(){
@@ -58,7 +71,9 @@ export function actions(fbRoot, user){
         msg.suggestionId = activeSuggestion.id
         msg.cueId = activeSuggestion.cue.id
       }
-      updateThread(thread, { [`messages/${msg.id}`]: msg })
+      let update = { [`messages/${msg.id}`]: msg }
+      for (var k in msg.data) update[`data/${k}/${user.uid}`] = msg.data[k]
+      updateThread(thread, update)
     },
 
     cast(thread, role, joining = true){

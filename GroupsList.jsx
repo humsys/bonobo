@@ -5,10 +5,10 @@ let GroupCell = ({group, onClick}) => (
   <div className="table-view-cell group" onClick={onClick}>
     Group: {group.id}
     <p>
-        {Object.values(group.members).map(m => <b>{m.displayName}</b>)}
+        {Object.values(group.members).map(m => <b>{m.displayName}; </b>)}
     </p>
   </div>
-)                   
+)
 
 export default class GroupsList extends React.Component {
   constructor(props){
@@ -26,6 +26,9 @@ export default class GroupsList extends React.Component {
         {...this.props}
         />
     }
+    let orderedGroups = Object.values(groups).sort(
+      (a, b) => ((b.mtime||0) - (a.mtime||0))
+    )
     return (
       <div className="Screen">
         <header className="bar bar-nav">
@@ -38,11 +41,11 @@ export default class GroupsList extends React.Component {
         </header>
         <div className="content">
           <div className="table-view">{
-              Object.values(this.props.groups).map(
+              orderedGroups.map(
                   g => <GroupCell group={g} {...this.props} onClick={
                       () => this.setState({selectedGroup: g.id})
                   } />
-              ) 
+              )
           }</div>
         </div>
       </div>

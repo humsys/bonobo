@@ -17,11 +17,35 @@ let SCENE      = new RegExp(`^--\\s*${SCENE_COMPONENTS}\\s*--$`)
 let CHARACTER  = new RegExp(`^${ROLE_IDENT}\\.\\s+(.*?)$`)
 let MESSAGE    = new RegExp(`^${ROLES}:\\s+(.*?)$`)
 let CASTBUTTON = new RegExp(`\\[(${RANGE}\\s+)?${ROLE_IDENT}\\]`, 'g')
+let DATA       = /\{([a-zA-Z]+): (.*?)\}/g
 
 ///and build them into a simple parser
 let Parser = {
   inSeconds(n, unit){
     return n * {s: 1, m: 60, h: 60*60, d: 60*60*24}[unit[0]]
+  },
+
+  parseRange(text){
+    if (text == '1+') return [1,5000]
+    let [min,max] = text.split('-')
+    if (!max) return [min, min]
+    else return [min, max]
+  },
+
+  parseMessage(text){
+    var m
+    let recipients = [], casts = {}, data = {}
+    if (m = text.match(MENTIONS)){
+      recipients = m[0].match(new RegExp(MENTION, 'g')).map(x => x.slice(1))
+      text = text.replace(MENTIONS, '')
+    }
+    while (m = CASTBUTTON.exec(text)){
+      casts[m[3]] = this.parseRange(m[1] && m[2] || "1+")
+    }
+    while (m = DATA.exec(text)){
+      data[m[1]] = m[2]
+    }
+    return { recipients, text, casts, data }
   },
 
   parse(text){
@@ -54,35 +78,24 @@ let Parser = {
         })
       } else if (m = line.match(MESSAGE)){ // template message
         let senders = m[1].split(/,\s*/)
-        let text = m[5]
-        let recipients = []
-        if (m = text.match(MENTIONS)){
-          recipients = m[0].match(new RegExp(MENTION, 'g')).map(x => x.slice(1))
-          text = text.replace(MENTIONS, '')
-        }
+        let { recipients, text, casts, data } = this.parseMessage(m[5])
         let subconditions = Object.assign({}, conditions)
         let humanSenders = senders.filter(s => s.match(/^[a-z]/) && s !== 'members')
         recipients.concat(humanSenders).forEach(r => subconditions[r] = 'exists')
-        let casts = []
-        while (m = CASTBUTTON.exec(text)){
-          let count = m[1] && m[2]
-          let role = m[3]
-          casts.push(role)
+        Object.keys(casts).forEach(role => {
+          let count = casts[role]
           if (!this.script.characters[role]) this.script.characters[role] = {}
           if (count){
             this.script.characters[role].min = this.script.characters[role].max = count
           } else {
             if (!this.script.characters[role].min) this.script.characters[role].min = 1
           }
-        }
+        })
         this.script.cues.push({
           id: this.script.cues.length,
           prompt: hint || null,
           conditions: subconditions,
-          senders: senders,
-          recipients: recipients,
-          text: text,
-          casts: casts,
+          senders, recipients, text, casts, data,
           isDraft: senders.length > 1 || !senders[0].match(/^[A-Z]/)
         })
         hint = null
